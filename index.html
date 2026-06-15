@@ -556,7 +556,7 @@
         </div>
       </div>
       <div class="contact-right">
-        <form id="portfolioContactForm">
+        <form id="portfolioContactForm" action="https://formsubmit.co/akapogodson@gmail.com" method="POST">
           <div class="form-group">
             <label for="formName">Name</label>
             <input type="text" id="formName" required placeholder="Your name" />
@@ -606,27 +606,57 @@
       }
     });
 
-    // 3. Functional Contact Form Submission
+    // 3. Functional Contact Form Submission via Fetch API
     const contactForm = document.getElementById('portfolioContactForm');
     const formStatus = document.getElementById('formStatus');
+    const submitBtn = contactForm.querySelector('.btn-submit');
 
     contactForm.addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevents the page from refreshing
+      event.preventDefault(); // Prevents page reload
       
+      // Show loading state
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+
+      const formData = new FormData(contactForm);
       const name = document.getElementById('formName').value;
-      
-      // Update UI state to show it worked perfectly
-      formStatus.textContent = `Thank you, ${name}! Your message was processed successfully.`;
-      formStatus.className = 'form-status success';
-      
-      // Clear inputs
-      contactForm.reset();
-      
-      // Clear status bar after 5 seconds
-      setTimeout(() => {
-        formStatus.style.display = 'none';
+
+      // Send the form data to FormSubmit in the background
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          // Update UI state to show it worked perfectly
+          formStatus.textContent = `Thank you, ${name}! Your message has been sent to my inbox.`;
+          formStatus.className = 'form-status success';
+          formStatus.style.display = 'block';
+          contactForm.reset();
+        } else {
+          throw new Error('Form submission failed');
+        }
+      })
+      .catch(error => {
+        formStatus.textContent = 'Oops! There was a problem submitting your form.';
         formStatus.className = 'form-status';
-      }, 5000);
+        formStatus.style.display = 'block';
+        formStatus.style.background = 'rgba(239, 68, 68, 0.1)';
+        formStatus.style.color = '#EF4444';
+      })
+      .finally(() => {
+        // Reset button state
+        submitBtn.textContent = 'Send Message';
+        submitBtn.disabled = false;
+
+        // Clear status bar after 5 seconds
+        setTimeout(() => {
+          formStatus.style.display = 'none';
+        }, 5000);
+      });
     });
   </script>
 </body>

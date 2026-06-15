@@ -557,17 +557,20 @@
       </div>
       <div class="contact-right">
         <form id="portfolioContactForm" action="https://formsubmit.co/dae50608a8e556cd1c9766650eb4299b" method="POST">
+          <input type="hidden" name="_subject" value="New Portfolio Message!">
+          <input type="hidden" name="_captcha" value="false">
+
           <div class="form-group">
             <label for="formName">Name</label>
-            <input type="text" id="formName" required placeholder="Your name" />
+            <input type="text" id="formName" name="name" required placeholder="Your name" />
           </div>
           <div class="form-group">
             <label for="formEmail">Email</label>
-            <input type="email" id="formEmail" required placeholder="your.email@example.com" />
+            <input type="email" id="formEmail" name="email" required placeholder="your.email@example.com" />
           </div>
           <div class="form-group">
             <label for="formMessage">Message</label>
-            <textarea id="formMessage" rows="4" required placeholder="Let's discuss data, AgriTech, or engineering projects..."></textarea>
+            <textarea id="formMessage" name="message" rows="4" required placeholder="Let's discuss data, AgriTech, or engineering projects..."></textarea>
           </div>
           <button type="submit" class="btn-submit">Send Message</button>
           <div id="formStatus" class="form-status"></div>

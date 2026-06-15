@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Godson Olanrewaju Akapo | Portfolio</title>
+  <meta name="description" content="Portfolio of Godson Olanrewaju Akapo - Data Analyst, Aspiring ML Engineer, and Agripreneur. Building the bridge between technology and agriculture." />
+  <meta property="og:title" content="Godson Olanrewaju Akapo | Portfolio" />
+  <meta property="og:description" content="Building the bridge between technology and agriculture — one dataset, one model, one harvest at a time." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://github.com/NewGencodeX" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:          #060F08;
+      --bg-card:     #0D1F11;
+      --bg-card2:    #111f14;
+      --gold:        #E0B84A;
+      --gold-dim:    rgba(224,184,74,0.12);
+      --green:       #4ADE80;
+      --green-dim:   rgba(74,222,128,0.10);
+      --text:        #EDE9DF;
+      --text-muted:  #A3B8A9; 
+      --border:      rgba(255,255,255,0.07);
+      --border-gold: rgba(224,184,74,0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(6, 15, 8, 0.85);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--gold);
+      letter-spacing: -0.02em;
+    }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -20%; right: -10%;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,222,128,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 30%;
+      width: 400px; height: 300px;
+      background: radial-gradient(circle, rgba(224,184,74,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+    .pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(74,222,128,0.5);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
+      70%  { box-shadow: 0 0 0 8px rgba(74,222,128,0); }
+      100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+    }
+    .eyebrow-text {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .hero-name .first { color: var(--text); }
+    .hero-name .last  { color: var(--gold); }
+    .hero-tagline {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 1.25rem 0 2.5rem;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+    .hero-tagline strong { color: var(--text); font-weight: 500; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold);
+      color: #0a0a0a;
+      border: none;
+      padding: 0.8rem 1.75rem;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border-gold);
+      padding: 0.8rem 1.75rem;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-ghost:hover { background: var(--gold-dim); transform: translateY(-1px); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0 2.5rem;
+      margin: 0;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+    .divider-icon {
+      width: 28px; height: 28px; flex-shrink: 0;
+    }
+    .divider-icon svg { width: 100%; height: 100%; }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 5rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--text);
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-statement {
+      position: sticky; top: 6rem;
+    }
+    .about-quote {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--gold);
+      line-height: 1.4;
+      margin-bottom: 1.5rem;
+    }
+    .about-tags { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.5rem; }
+    .about-tag {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .about-tag::before {
+      content: '';
+      width: 18px; height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .about-body p {
+      color: var(--text-muted);
+      font-size: 0.975rem;
+      line-height: 1.9;
+      margin-bottom: 1.25rem;
+    }
+    .about-body p .highlight {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── SKILLS ── */
+    .skills-section { background: var(--bg-card); border-radius: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .skills-section section { max-width: 1100px; }
+    .skills-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+    .skill-cat-title {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill {
+      font-size: 0.8rem;
+      padding: 5px 12px;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      background: transparent;
+      transition: all 0.2s;
+    }
+    .pill:hover { border-color: var(--border-gold); color: var(--gold); }
+    .pill.strong { border-color: var(--border-gold); color: var(--gold); background: var(--gold-dim); }
+
+    /* ── PROJECTS ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.75rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover { border-color: var(--border-gold); transform: translateY(-3px); }
+    .project-card.placeholder { opacity: 0.45; }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      height: 2px; width: 0;
+      background: linear-gradient(90deg, var(--gold), var(--green));
+      transition: width 0.35s ease;
+    }
+    .project-card:hover::before { width: 100%; }
+    .project-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.75rem;
+      color: var(--gold);
+      opacity: 0.6;
+      margin-bottom: 1rem;
+    }
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+    .project-title a {
+      color: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .project-title a:hover {
+      color: var(--gold);
+    }
+    .project-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .project-desc ul { padding-left: 1.1rem; }
+    .project-desc li { margin-bottom: 0.35rem; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .stack-tag {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 2px;
+      background: var(--green-dim);
+      color: var(--green);
+      border: 1px solid rgba(74,222,128,0.15);
+    }
+    .coming-soon {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 0.5rem;
+    }
+
+    /* ── CONTACT ── */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-left p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 2rem;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .contact-link:hover { color: var(--gold); border-color: var(--border-gold); }
+    .contact-link-icon {
+      width: 16px; height: 16px;
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+    .contact-right {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2rem;
+    }
+    .contact-right p {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 1rem;
+    }
+    .contact-right span {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    footer .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--gold);
+    }
+
+    /* ── FULL-WIDTH WRAPPER ── */
+    .full-width { max-width: 100%; padding: 0; }
+    .full-width section { padding: 5rem 2.5rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.25rem; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      section { padding: 3.5rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-statement { position: static; }
+      .contact-wrapper { grid-template-columns: 1fr; gap: 2rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .full-width section { padding: 3.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">Godson's Portfolio</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <div class="pulse-dot"></div>
+      <span class="eyebrow-text">Open to opportunities</span>
+    </div>
+    <h1 class="hero-name">
+      <span class="first">Godson<br>Olanrewaju</span><br>
+      <span class="last">Akapo.</span>
+    </h1>
+    <p class="hero-tagline">
+      <strong>Data Analyst · Aspiring ML Engineer · Agripreneur.</strong><br>
+      Building the bridge between technology and agriculture —
+      one dataset, one model, one harvest at a time.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View my work</a>
+      <a href="#contact" class="btn-ghost">Get in touch</a>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="section-label">About me</div>
+    <h2 class="section-title">More than a résumé.</h2>
+    <div class="about-grid">
+      <div class="about-statement">
+        <div class="about-quote">"God-inspired. Spirit-filled. Purpose-driven."</div>
+        <div class="about-tags">
+          <span class="about-tag">CS Student · Landmark University</span>
+          <span class="about-tag">Data Analysis &amp; ML Engineering</span>
+          <span class="about-tag">Robotics &amp; Automation</span>
+          <span class="about-tag">Agripreneur · Nigeria</span>
+          <span class="about-tag">Music &amp; Arts Enthusiast</span>
+        </div>
+      </div>
+      <div class="about-body">
+        <p>
+          I am Godson — a <span class="highlight">God-inspired and spirit-filled intellectual</span> who recently
+          discovered something important about himself: I am quite the all-rounded man. Balanced across disciplines,
+          flexible in systems, capable of being the backbone wherever I am placed.
+        </p>
+        <p>
+          I am a <span class="highlight">deep lover of Christ</span>, and I seek to glorify Him through every work
+          of my hands and mind. As a Computer Science student at the prestigious
+          <span class="highlight">Landmark University</span> — an institution centred around agriculture — I am in
+          exactly the right place. My mission is to transform <span class="highlight">Nigeria's economy and
+          agricultural ecosystem through technology</span>, creating a new era for the next generation.
+        </p>
+        <p>
+          I am drawn to the intersection of <span class="highlight">AI, machine learning, robotics, and
+          agripreneurship</span> — not as separate pursuits, but as one unified calling. I believe the fields that
+          seem furthest apart often have the most powerful things to say to each other.
+        </p>
+        <p>
+          Beyond the screen, I am a lover of <span class="highlight">music and the arts</span> — the deep
+          expressions of the heart and mind. I am purpose-driven and attentive to every experience that draws out
+          my growth.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="skills-section full-width" id="skills">
+    <section>
+      <div class="section-label">What I work with</div>
+      <h2 class="section-title">Skills &amp; tools.</h2>
+      <div class="skills-categories">
+        <div>
+          <div class="skill-cat-title">Data &amp; Analysis</div>
+          <div class="skill-pills">
+            <span class="pill strong">Python</span>
+            <span class="pill strong">SQL</span>
+            <span class="pill strong">Excel</span>
+            <span class="pill strong">Pandas</span>
+            <span class="pill">NumPy</span>
+            <span class="pill">Matplotlib</span>
+            <span class="pill">Seaborn</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-cat-title">Machine Learning &amp; AI</div>
+          <div class="skill-pills">
+            <span class="pill strong">ML Fundamentals</span>
+            <span class="pill">Scikit-learn</span>
+            <span class="pill">TensorFlow</span>
+            <span class="pill">AI Tools &amp; APIs</span>
+            <span class="pill">Prompt Engineering</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-cat-title">Dev &amp; Workflow</div>
+          <div class="skill-pills">
+            <span class="pill strong">Git &amp; GitHub</span>
+            <span class="pill strong">VS Code</span>
+            <span class="pill">Jira</span>
+            <span class="pill">Linux Basics</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-cat-title">Currently exploring</div>
+          <div class="skill-pills">
+            <span class="pill">Robotics (ROS)</span>
+            <span class="pill">Automation</span>
+            <span class="pill">AgriTech Systems</span>
+            <span class="pill">IoT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section id="projects">
+    <div class="section-label">Selected work</div>
+    <h2 class="section-title">Projects.</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-num">01 · Data Analysis</div>
+        <div class="project-title">Sales Performance Analysis</div>
+        <div class="project-desc">
+          <ul>
+            <li>Cleaned and structured a 2023 sales dataset using Excel to improve data accuracy</li>
+            <li>Analyzed regional performance and product profitability, identifying key revenue drivers</li>
+            <li>Designed an interactive sales dashboard to track revenue trends and regional performance</li>
+          </ul>
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Excel</span>
+          <span class="stack-tag">Data Cleaning</span>
+          <span class="stack-tag">Dashboard Design</span>
+          <span class="stack-tag">Business Analysis</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">02 · Data Science &amp; Intelligence</div>
+        <div class="project-title">
+          <a href="https://github.com/NewGencodeX/ecommerce-data-analysis" target="_blank" rel="noopener noreferrer">
+            E-commerce Sales Intelligence System
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>
+          </a>
+        </div>
+        <div class="project-desc">
+          <ul>
+            <li>Developed a sales intelligence system using Python to clean and analyze transactional data</li>
+            <li>Implemented RFM analysis to segment customers and identify high-value groups</li>
+            <li>Automated reporting process, reducing manual analysis time and enhancing operational insights</li>
+          </ul>
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Pandas</span>
+          <span class="stack-tag">RFM Segmentation</span>
+          <span class="stack-tag">Automation</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">03 · AgriTech MVP &amp; Product Engineering</div>
+        <div class="project-title">
+          <a href="https://veon-agro-landing-page.vercel.app/" target="_blank" rel="noopener noreferrer">
+            VEON Agro MVP
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>
+          </a>
+        </div>
+        <div class="project-desc">
+          <ul>
+            <li>Co-developed a GSM-first, pre-sale decision support tool delivering crop price intelligence via voice/SMS</li>
+            <li>Removed digital boundaries for smallholder farmers in Kaduna, Kogi, and Niger states with no smartphone reliance</li>
+            <li>Engineered a system architecture utilizing verified local pricing networks and institutional anchor data</li>
+          </ul>
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">GSM Architecture</span>
+          <span class="stack-tag">Crop Price Intelligence</span>
+          <span class="stack-tag">Data Architecture</span>
+          <span class="stack-tag">Product MVP</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-label">Let's connect</div>
+    <h2 class="section-title">Get in touch.</h2>
+    <div class="contact-wrapper">
+      <div class="contact-left">
+        <p>
+          Whether you're interested in collaboration, have an opportunity to share,
+          or simply want to talk about data, agriculture, or the future of technology
+          in Africa — my door is always open.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:akapogodson@gmail.com" class="contact-link">
+            <svg class="contact-link-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+            akapogodson@gmail.com
+          </a>
+          <a href="https://github.com/NewGencodeX" target="_blank" class="contact-link">
+            <svg class="contact-link-icon" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.115 2.51.337 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+            GitHub (NewGencodeX)
+          </a>
+          <a href="https://www.linkedin.com/in/godson-akapo-40501a365" target="_blank" class="contact-link">
+            <svg class="contact-link-icon" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46C23.21 24 24 23.23 24 22.28V1.72C24 .77 23.21 0 22.23 0z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <p>"The best time to plant a tree was twenty years ago.<br>The second best time is now."</p>
+        <span>— A proverb Godson lives by. Let's build something together.</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-logo">Godson's Portfolio</span>
+    <span>© 2026 Godson Olanrewaju Akapo · Built with purpose</span>
+    <span>Nigeria 🌍</span>
+  </footer>
+
+</body>
+</html>

@@ -15,10 +15,10 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+    /* ── THEME VARIABLES ── */
     :root {
       --bg:          #060F08;
       --bg-card:     #0D1F11;
-      --bg-card2:    #111f14;
       --gold:        #E0B84A;
       --gold-dim:    rgba(224,184,74,0.12);
       --green:       #4ADE80;
@@ -27,6 +27,21 @@
       --text-muted:  #A3B8A9; 
       --border:      rgba(255,255,255,0.07);
       --border-gold: rgba(224,184,74,0.25);
+      --form-input:  rgba(255,255,255,0.03);
+    }
+
+    [data-theme="light"] {
+      --bg:          #F4F7F5;
+      --bg-card:     #FFFFFF;
+      --gold:        #B58913;
+      --gold-dim:    rgba(181,137,19,0.08);
+      --green:       #16A34A;
+      --green-dim:   rgba(22,163,74,0.08);
+      --text:        #1A2E22;
+      --text-muted:  #5A6E61; 
+      --border:      rgba(0,0,0,0.08);
+      --border-gold: rgba(181,137,19,0.3);
+      --form-input:  rgba(0,0,0,0.02);
     }
 
     html { scroll-behavior: smooth; }
@@ -38,6 +53,7 @@
       font-size: 16px;
       line-height: 1.7;
       overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
     }
 
     /* ── NAV ── */
@@ -46,7 +62,8 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 1.25rem 2.5rem;
       border-bottom: 1px solid var(--border);
-      background: rgba(6, 15, 8, 0.85);
+      background: var(--bg);
+      opacity: 0.98;
       backdrop-filter: blur(12px);
     }
     .nav-logo {
@@ -56,6 +73,7 @@
       color: var(--gold);
       letter-spacing: -0.02em;
     }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
     .nav-links { display: flex; gap: 2rem; }
     .nav-links a {
       font-size: 0.875rem;
@@ -64,6 +82,21 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--text); }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover { color: var(--text); border-color: var(--border-gold); }
+    .theme-toggle svg { width: 16px; height: 16px; }
+    [data-theme="light"] .sun-icon, body:not([data-theme="light"]) .moon-icon { display: none; }
 
     /* ── HERO ── */
     .hero {
@@ -79,13 +112,6 @@
       width: 600px; height: 600px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(74,222,128,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute; bottom: 0; left: 30%;
-      width: 400px; height: 300px;
-      background: radial-gradient(circle, rgba(224,184,74,0.05) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero-eyebrow {
@@ -161,18 +187,6 @@
     }
     .btn-ghost:hover { background: var(--gold-dim); transform: translateY(-1px); }
 
-    /* ── DIVIDER ── */
-    .divider {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 0 2.5rem;
-      margin: 0;
-    }
-    .divider-line { flex: 1; height: 1px; background: var(--border); }
-    .divider-icon {
-      width: 28px; height: 28px; flex-shrink: 0;
-    }
-    .divider-icon svg { width: 100%; height: 100%; }
-
     /* ── SECTIONS ── */
     section {
       padding: 5rem 2.5rem;
@@ -203,9 +217,7 @@
       gap: 4rem;
       align-items: start;
     }
-    .about-statement {
-      position: sticky; top: 6rem;
-    }
+    .about-statement { position: sticky; top: 6rem; }
     .about-quote {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
@@ -221,10 +233,8 @@
       display: flex; align-items: center; gap: 0.5rem;
     }
     .about-tag::before {
-      content: '';
-      width: 18px; height: 1px;
-      background: var(--gold);
-      flex-shrink: 0;
+      content: ''; width: 18px; height: 1px;
+      background: var(--gold); flex-shrink: 0;
     }
     .about-body p {
       color: var(--text-muted);
@@ -232,188 +242,89 @@
       line-height: 1.9;
       margin-bottom: 1.25rem;
     }
-    .about-body p .highlight {
-      color: var(--text);
-      font-weight: 500;
-    }
+    .about-body p .highlight { color: var(--text); font-weight: 500; }
 
     /* ── SKILLS ── */
-    .skills-section { background: var(--bg-card); border-radius: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .skills-section section { max-width: 1100px; }
+    .skills-section { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .skills-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
     .skill-cat-title {
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border);
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
     }
     .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .pill {
-      font-size: 0.8rem;
-      padding: 5px 12px;
-      border-radius: 3px;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      background: transparent;
-      transition: all 0.2s;
+      font-size: 0.8rem; padding: 5px 12px; border-radius: 3px;
+      border: 1px solid var(--border); color: var(--text-muted); background: transparent;
     }
-    .pill:hover { border-color: var(--border-gold); color: var(--gold); }
     .pill.strong { border-color: var(--border-gold); color: var(--gold); background: var(--gold-dim); }
 
     /* ── PROJECTS ── */
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
     .project-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1.75rem;
-      transition: border-color 0.2s, transform 0.2s;
-      position: relative;
-      overflow: hidden;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 6px; padding: 1.75rem; position: relative; overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
     }
     .project-card:hover { border-color: var(--border-gold); transform: translateY(-3px); }
-    .project-card.placeholder { opacity: 0.45; }
-    .project-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0;
-      height: 2px; width: 0;
-      background: linear-gradient(90deg, var(--gold), var(--green));
-      transition: width 0.35s ease;
-    }
-    .project-card:hover::before { width: 100%; }
-    .project-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 0.75rem;
-      color: var(--gold);
-      opacity: 0.6;
-      margin-bottom: 1rem;
-    }
-    .project-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: var(--text);
-      margin-bottom: 0.75rem;
-    }
-    .project-title a {
-      color: inherit;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-    .project-title a:hover {
-      color: var(--gold);
-    }
-    .project-desc {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-      margin-bottom: 1.25rem;
-    }
+    .project-num { font-family: 'Syne', sans-serif; font-size: 0.75rem; color: var(--gold); opacity: 0.6; margin-bottom: 1rem; }
+    .project-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 0.75rem; }
+    .project-title a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
+    .project-title a:hover { color: var(--gold); }
+    .project-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1.25rem; }
     .project-desc ul { padding-left: 1.1rem; }
     .project-desc li { margin-bottom: 0.35rem; }
     .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .stack-tag {
-      font-size: 0.72rem;
-      padding: 3px 8px;
-      border-radius: 2px;
-      background: var(--green-dim);
-      color: var(--green);
-      border: 1px solid rgba(74,222,128,0.15);
-    }
-    .coming-soon {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      font-style: italic;
-      margin-top: 0.5rem;
-    }
+    .stack-tag { font-size: 0.72rem; padding: 3px 8px; border-radius: 2px; background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,0.15); }
 
-    /* ── CONTACT ── */
-    .contact-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-    .contact-left p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.9;
-      margin-bottom: 2rem;
-    }
+    /* ── CONTACT & FORM ── */
+    .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-left p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.9; margin-bottom: 2rem; }
     .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
     .contact-link {
-      display: flex; align-items: center; gap: 0.75rem;
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 4px;
+      display: flex; align-items: center; gap: 0.75rem; font-size: 0.875rem;
+      color: var(--text-muted); text-decoration: none; padding: 0.75rem 1rem;
+      border: 1px solid var(--border); border-radius: 4px; transition: all 0.2s;
     }
     .contact-link:hover { color: var(--gold); border-color: var(--border-gold); }
-    .contact-link-icon {
-      width: 16px; height: 16px;
-      opacity: 0.7;
-      flex-shrink: 0;
+    .contact-link-icon { width: 16px; height: 16px; opacity: 0.7; flex-shrink: 0; }
+    
+    .contact-right { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 2.25rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 0.78rem; font-weight: 500; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 0.75rem 1rem; background: var(--form-input); border: 1px solid var(--border);
+      color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; border-radius: 4px; transition: border-color 0.2s;
     }
-    .contact-right {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 2rem;
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--border-gold); }
+    .btn-submit {
+      width: 100%; background: var(--gold); color: var(--bg); border: none; padding: 0.85rem;
+      font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;
     }
-    .contact-right p {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: var(--text);
-      line-height: 1.4;
-      margin-bottom: 1rem;
-    }
-    .contact-right span {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-    }
+    .btn-submit:hover { opacity: 0.9; }
+    .form-status { font-size: 0.85rem; margin-top: 1rem; display: none; padding: 0.5rem; border-radius: 4px; text-align: center; }
+    .form-status.success { display: block; background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
 
     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 1.75rem 2.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      border-top: 1px solid var(--border); padding: 1.75rem 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.8rem; color: var(--text-muted);
     }
-    footer .footer-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 0.95rem;
-      color: var(--gold);
-    }
+    footer .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--gold); }
 
-    /* ── FULL-WIDTH WRAPPER ── */
     .full-width { max-width: 100%; padding: 0; }
     .full-width section { padding: 5rem 2.5rem; }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.25rem; }
+      .nav-right { gap: 1rem; }
+      .nav-links { gap: 1rem; }
       .hero { padding: 7rem 1.5rem 3rem; }
       section { padding: 3.5rem 1.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .about-statement { position: static; }
-      .contact-wrapper { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
       .full-width section { padding: 3.5rem 1.5rem; }
     }
@@ -423,11 +334,17 @@
 
   <nav>
     <div class="nav-logo">Godson's Portfolio</div>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
     </div>
   </nav>
 
@@ -639,17 +556,78 @@
         </div>
       </div>
       <div class="contact-right">
-        <p>"The best time to plant a tree was twenty years ago.<br>The second best time is now."</p>
-        <span>— A proverb Godson lives by. Let's build something together.</span>
+        <form id="portfolioContactForm">
+          <div class="form-group">
+            <label for="formName">Name</label>
+            <input type="text" id="formName" required placeholder="Your name" />
+          </div>
+          <div class="form-group">
+            <label for="formEmail">Email</label>
+            <input type="email" id="formEmail" required placeholder="your.email@example.com" />
+          </div>
+          <div class="form-group">
+            <label for="formMessage">Message</label>
+            <textarea id="formMessage" rows="4" required placeholder="Let's discuss data, AgriTech, or engineering projects..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Message</button>
+          <div id="formStatus" class="form-status"></div>
+        </form>
       </div>
     </div>
   </section>
 
   <footer>
     <span class="footer-logo">Godson's Portfolio</span>
-    <span>© 2026 Godson Olanrewaju Akapo · Built with purpose</span>
+    <span>© <span id="currentYear"></span> Godson Olanrewaju Akapo · Built with purpose</span>
     <span>Nigeria 🌍</span>
   </footer>
 
+  <script>
+    // 1. Dynamic Copyright Year
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // 2. Light/Dark Theme Switcher
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    
+    // Initial state setup
+    if (savedTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // 3. Functional Contact Form Submission
+    const contactForm = document.getElementById('portfolioContactForm');
+    const formStatus = document.getElementById('formStatus');
+
+    contactForm.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevents the page from refreshing
+      
+      const name = document.getElementById('formName').value;
+      
+      // Update UI state to show it worked perfectly
+      formStatus.textContent = `Thank you, ${name}! Your message was processed successfully.`;
+      formStatus.className = 'form-status success';
+      
+      // Clear inputs
+      contactForm.reset();
+      
+      // Clear status bar after 5 seconds
+      setTimeout(() => {
+        formStatus.style.display = 'none';
+        formStatus.className = 'form-status';
+      }, 5000);
+    });
+  </script>
 </body>
 </html>
